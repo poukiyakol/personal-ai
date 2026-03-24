@@ -14,6 +14,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden;
         }
         .vault-box {
             background: #141414;
@@ -22,7 +23,10 @@
             text-align: center;
             box-shadow: 0 0 40px rgba(0,0,0,1);
             width: 350px;
+            border-radius: 4px;
         }
+        h2 { letter-spacing: 5px; margin-bottom: 5px; }
+        p { font-size: 0.75em; color: #666; margin-bottom: 25px; }
         input {
             display: block;
             width: 100%;
@@ -33,6 +37,8 @@
             color: #a3be8c;
             text-align: center;
             font-size: 1.1em;
+            box-sizing: border-box;
+            outline: none;
         }
         button {
             background: #3e362e;
@@ -44,25 +50,36 @@
             letter-spacing: 3px;
             font-weight: bold;
             transition: 0.2s;
+            text-transform: uppercase;
         }
         button:hover { background: #5a4d41; color: #fff; }
-        .status-text { font-size: 0.65em; color: #444; margin-top: 25px; letter-spacing: 1px; }
+        .status-text { 
+            font-size: 0.6em; 
+            color: #444; 
+            margin-top: 25px; 
+            letter-spacing: 1px; 
+            line-height: 1.5;
+            text-align: left;
+            border-top: 1px solid #222;
+            padding-top: 15px;
+        }
     </style>
 </head>
 <body>
 
 <div class="vault-box">
-    <h2 style="letter-spacing: 5px;">[ LOGIN ]</h2>
-    <p style="font-size: 0.8em; color: #666;">IDENTITY: BOUMAZA DOMAIN</p>
+    <h2>[ LOGIN ]</h2>
+    <p>IDENTITY: BOUMAZA_DOMAIN_v3.2</p>
     
     <input type="text" id="surname" placeholder="SURNAME" autocomplete="off">
     <input type="password" id="passkey" placeholder="ACCESS_CODE">
     
-    <button onclick="unlock()">ENTER VAULT</button>
+    <button onclick="unlock()">DECRYPT & ENTER</button>
     
     <div class="status-text">
-        BRIDGE: SECURE<br>
-        SYSTEM: v3.2_LLAMA
+        BRIDGE: SECURE_TUNNEL_ACTIVE<br>
+        LOC: LOCAL_MACBOOK_SERVER<br>
+        AUTH: FAMILY_ONLY_ENCRYPTION
     </div>
 </div>
 
@@ -76,7 +93,7 @@
             // REDIRECT TO YOUR LIVE OPEN WEBUI LINK
             window.location.href = "https://territory-rights-urban-appears.trycloudflare.com";
         } else {
-            alert("ACCESS DENIED: CREDENTIALS NOT FOUND.");
+            alert("ACCESS DENIED: CREDENTIALS REJECTED.");
         }
     }
 </script>
