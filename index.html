@@ -1,1 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boumaza Family AI Vault</title>
+    <style>
+        /* Dark Academia / Terminal Aesthetic */
+        body {
+            background-color: #121212;
+            color: #d4c4a8;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            background-color: #1c1c1c;
+            padding: 30px;
+            border: 1px solid #3e362e;
+            box-shadow: 0 0 20px rgba(0,0,0,0.7);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 4px;
+        }
+        h2 { border-bottom: 1px solid #3e362e; padding-bottom: 10px; font-size: 1.2em; text-align: center; }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background: #000;
+            border: 1px solid #3e362e;
+            color: #d4c4a8;
+            box-sizing: border-box;
+            outline: none;
+        }
+        button {
+            background: #3e362e;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        button:hover { background: #5a4d41; color: #fff; }
+        #chat-interface { display: none; }
+        #messages {
+            height: 350px;
+            overflow-y: auto;
+            border: 1px solid #3e362e;
+            margin-bottom: 10px;
+            padding: 15px;
+            background: #0a0a0a;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+        .user-msg { color: #8fa1b3; margin-bottom: 10px; }
+        .ai-msg { color: #a3be8c; margin-bottom: 15px; border-left: 2px solid #4a3f35; padding-left: 10px; }
+        #status-light { height: 8px; width: 8px; background: #555; border-radius: 50%; display: inline-block; margin-right: 5px; }
+    </style>
+</head>
+<body>
 
+<div class="container">
+    <div id="login-screen">
+        <h2>[ ACCESS_RESTRICTED ]</h2>
+        <p style="font-size: 0.7em; text-align: center; color: #666;">AUTHORIZATION REQUIRED: BOUMAZA DOMAIN</p>
+        <input type="text" id="surname" placeholder="SURNAME">
+        <input type="password" id="password" placeholder="ACCESS_KEY">
+        <button onclick="checkAccess()">Decrypt</button>
+    </div>
+
+    <div id="chat-interface">
+        <h2><span id="status-light"></span>BOUMAZA_INTEL_v3.2</h2>
+        <div id="messages">
+            <div class="ai-msg"><b>SYSTEM:</b> Connection established. Waiting for family input...</div>
+        </div>
+        <div style="display: flex; gap: 5px;">
+            <input type="text" id="user-input" placeholder="Type command..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <button style="width: 80px;" onclick="sendMessage()">></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // YOUR LIVE CLOUDFLARE BRIDGE
+    const CLOUD_URL = "https://senator-shareware-creativity-interracial.trycloudflare.com";
+    const FAMILY_SURNAME = "boumaza";
+    const PASSKEY = "Family2026"; // You can change this to whatever you want
+
+    function checkAccess() {
+        const s = document.getElementById('surname').value.trim().toLowerCase();
+        const p = document.getElementById('password').value;
+
+        if (s === FAMILY_SURNAME && p === PASSKEY) {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('chat-interface').style.display = 'block';
+            document.getElementById('status-light').style.background = '#0f0';
+        } else {
+            alert("CREDENTIALS INVALID.");
+        }
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById('user-input');
+        const msgDiv = document.getElementById('messages');
+        const text = input.value.trim();
+        if (!text) return;
+
+        // Display user message
+        msgDiv.innerHTML += `<div class="user-msg"><b>YOU:</b> ${text}</div>`;
+        input.value = '';
+        msgDiv.scrollTop = msgDiv.scrollHeight;
+
+        try {
+            const response = await fetch(`${CLOUD_URL}/api/v1/chat`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    message: text,
+                    stream: false 
+                })
+            });
+            
+            if (!response.ok) throw new Error('Gateway Offline');
+            
+            const data = await response.json();
+            // OpenClaw usually returns 'response' or 'content'
+            const aiReply = data.response || data.content || "Command Executed.";
+            
+            msgDiv.innerHTML += `<div class="ai-msg"><b>AI:</b> ${aiReply}</div>`;
+        } catch (err) {
+            msgDiv.innerHTML += `<div style="color:#bf616a"><b>SYSTEM_ERROR:</b> Gateway connection timed out. Ensure PowerShell is running Cloudflared and OpenClaw.</div>`;
+        }
+        msgDiv.scrollTop = msgDiv.scrollHeight;
+    }
+</script>
+
+</body>
+</html>
