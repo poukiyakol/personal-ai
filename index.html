@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boumaza AI Portal</title>
+    <title>Boumaza Family AI Vault</title>
     <style>
         body {
-            background-color: #0d0d0d;
+            background-color: #0a0a0a;
             color: #d4c4a8;
             font-family: 'Courier New', Courier, monospace;
             display: flex;
@@ -16,61 +16,67 @@
             margin: 0;
         }
         .vault-box {
-            background: #1a1a1a;
+            background: #141414;
             padding: 40px;
             border: 1px solid #3e362e;
             text-align: center;
-            box-shadow: 0 0 30px rgba(0,0,0,1);
-            border-radius: 5px;
+            box-shadow: 0 0 40px rgba(0,0,0,1);
+            width: 350px;
         }
         input {
             display: block;
             width: 100%;
             margin: 15px 0;
-            padding: 10px;
+            padding: 12px;
             background: #000;
             border: 1px solid #3e362e;
-            color: #0f0; /* Matrix Green for typing */
+            color: #a3be8c;
             text-align: center;
+            font-size: 1.1em;
         }
         button {
             background: #3e362e;
             color: #d4c4a8;
-            padding: 10px 30px;
+            padding: 12px 0;
+            width: 100%;
             border: none;
             cursor: pointer;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             font-weight: bold;
+            transition: 0.2s;
         }
-        button:hover { background: #5a4d41; }
-        .status { font-size: 0.7em; color: #555; margin-top: 20px; }
+        button:hover { background: #5a4d41; color: #fff; }
+        .status-text { font-size: 0.65em; color: #444; margin-top: 25px; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
 <div class="vault-box">
-    <h2>[ BOUMAZA_VAULT ]</h2>
-    <p>IDENTITY VERIFICATION REQUIRED</p>
+    <h2 style="letter-spacing: 5px;">[ LOGIN ]</h2>
+    <p style="font-size: 0.8em; color: #666;">IDENTITY: BOUMAZA DOMAIN</p>
     
-    <input type="text" id="surname" placeholder="ENTER SURNAME">
-    <input type="password" id="passkey" placeholder="ACCESS CODE">
+    <input type="text" id="surname" placeholder="SURNAME" autocomplete="off">
+    <input type="password" id="passkey" placeholder="ACCESS_CODE">
     
-    <button onclick="unlock()">DECRYPT & ENTER</button>
+    <button onclick="unlock()">ENTER VAULT</button>
     
-    <div class="status">GATEWAY: ACTIVE<br>TUNNEL: SECURE</div>
+    <div class="status-text">
+        BRIDGE: SECURE<br>
+        SYSTEM: v3.2_LLAMA
+    </div>
 </div>
 
 <script>
     function unlock() {
-        const s = document.getElementById('surname').value.toLowerCase();
+        const s = document.getElementById('surname').value.trim().toLowerCase();
         const p = document.getElementById('passkey').value;
         
         // YOUR FAMILY CREDENTIALS
         if (s === "boumaza" && p === "Family2026") {
-            // REDIRECT TO YOUR LIVE TUNNEL
-            window.location.href = "https://reader-changing-pcs-civilian.trycloudflare.com";
+            // REDIRECT TO YOUR LIVE OPEN WEBUI LINK
+            window.location.href = "https://territory-rights-urban-appears.trycloudflare.com";
         } else {
-            alert("CREDENTIALS REJECTED. ACCESS DENIED.");
+            alert("ACCESS DENIED: CREDENTIALS NOT FOUND.");
         }
     }
 </script>
